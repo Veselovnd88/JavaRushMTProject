@@ -26,9 +26,21 @@ public class EqualsTask {
         }
         else {
         	EqualsTask myOb = (EqualsTask) n;
-        	if (first != null ? !first.equals(myOb.first) : myOb.first != null) return false;
-            return last != null ? last.equals(myOb.last) : myOb.last == null;
-            //
+        	//if (first != null ? !first.equals(myOb.first)
+        	//проверка оператора - если первое!=null
+        //то проверка условия на равенство первых поле - если равны - то if - возвращает фолс
+        //если не нулл - проверяется второе условие - первое поле переданного объекта ноль - фолс
+        			//тогда переходим к следующему условию
+        		//	: myOb.first != null) return false;
+            //return last != null ? last.equals(myOb.last) : myOb.last == null;
+            //проверяем второе поле не налл - проверяем на равенство вторые поля.
+            if(first==null||last==null||myOb.first==null||myOb.last==null) {
+            	return false;
+            }
+            if(this.first.equals(myOb.first)&&this.last.equals(myOb.last)) {
+            	return true;
+            }
+            return false;
 
         		
         	
