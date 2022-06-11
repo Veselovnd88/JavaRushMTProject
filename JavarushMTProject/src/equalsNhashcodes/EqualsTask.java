@@ -10,29 +10,31 @@ public class EqualsTask {
         this.first = first;
         this.last = last;
     }
-
-    public boolean equals(EqualsTask n) {
+    @Override
+    public boolean equals(Object n) {
         if(n==null) {
         	return false;
         }
-        if(n.getClass()!=this.getClass()) {
+        if(n.getClass()!=this.getClass()) {//если разные классы то фолс
         	return false;
         }
         if(n.hashCode()!=this.hashCode()) {
         	return false;
         }
-        if(n==this) {
+        if(n==this) {//Если равно нашему объекту то тру
         	return true;
         }
         else {
         	EqualsTask myOb = (EqualsTask) n;
-        	if(myOb.first!=null &&myOb.last!=null) {
-        		return this.first.equals(myOb.first)&&this.last.equals(myOb.last);
-        	}
+        	if (first != null ? !first.equals(myOb.first) : myOb.first != null) return false;
+            return last != null ? last.equals(myOb.last) : myOb.last == null;
+            //
+
+        		
+        	
         	
         	
         }
-		return false;
     	
     }
 
@@ -64,7 +66,4 @@ public class EqualsTask {
         System.out.println(s.contains(new EqualsTask("Donald", "Duck")));
     }
 	
-	
-	
-
 }
