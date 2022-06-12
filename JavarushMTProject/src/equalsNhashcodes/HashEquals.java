@@ -30,9 +30,9 @@ public class HashEquals {
         if (anInt != solution1.anInt) return false;
         if (date != null ? !date.equals(solution1.date) : solution1.date == null) return false;
         if (solution != null ? !solution.equals(solution1.solution) : solution1.solution == null) return false;
-        if (string != null ? !string.equals(solution1.string) : solution1.string == null) return false;
+        return string != null ? !string.equals(solution1.string) : solution1.string == null;
 
-        return true;
+        
     }
 
     @Override
@@ -40,14 +40,16 @@ public class HashEquals {
         int result;
         long temp;
         result = anInt;
+        result = 31 * result + (string != null ? string.hashCode() : 0);
         temp = aDouble != +0.0d ? Double.doubleToLongBits(aDouble) : 0L;
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (solution != null ? solution.hashCode() : 0);
         return result;
     }
 
     public static void main(String[] args) {
-    	
+    
     }
 
 }
