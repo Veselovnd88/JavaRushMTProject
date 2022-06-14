@@ -45,7 +45,17 @@ public class PlantsAndTrees {
         }
         
         @Override
-        public  Object clone() {
+        public  Object clone() throws CloneNotSupportedException {
+        	String name_cl = new String(super.getName());
+        	String[] branches_cl = new String[branches.length];
+        	for(int i=0; i<branches.length; i++) {
+        		branches_cl[i] = new String(branches[i]);
+        	}
+        	Tree tree_cl = new Tree(name_cl,branches_cl);
+        	
+        	
+        	
+			return tree_cl;
         	
         }
         
