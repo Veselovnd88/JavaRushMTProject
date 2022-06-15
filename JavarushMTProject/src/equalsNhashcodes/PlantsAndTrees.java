@@ -12,7 +12,7 @@ public class PlantsAndTrees {
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-
+      
         System.out.println(tree);
         System.out.println(clone);
 
@@ -21,7 +21,7 @@ public class PlantsAndTrees {
     }
 
     public static class Plant {
-        private String name;
+    	private String name;
 
         public Plant(String name) {
             this.name = name;
