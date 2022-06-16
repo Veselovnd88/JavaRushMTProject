@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -20,15 +21,22 @@ public class Images_1 extends JPanel {
    }
 
    public static Image createImageWithText() {
-      BufferedImage bufferedImage = new BufferedImage(200,200,BufferedImage.TYPE_INT_RGB);
+      BufferedImage bufferedImage = new BufferedImage(200,80,BufferedImage.TYPE_INT_RGB);
       Graphics g = bufferedImage.getGraphics();
       g.fillRect(0, 0, 200, 200);
+      Font stringFont = new Font("Arial",Font.PLAIN,12);
+      Font stringBold = new Font("Arial",Font.BOLD,12);
+      g.setFont(stringFont);
       g.setColor(Color.black);
-      g.drawString("My coordinates are 0 and 0", 50,50);
-      g.drawString("www.tutorialspoint.com", 20,40);
-      g.drawString("www.tutorialspoint.com", 20,60);
-      g.drawString("www.tutorialspoint.com", 20,80);
-      g.drawString("www.tutorialspoint.com", 20,100);
+      
+      g.drawString("ADZ-SML-20.11", 30,15);
+      
+      g.drawString("1 MPa    0.5...5V", 30,30);
+      g.drawString("1+, 2-, 3 Out, 4 Gehause", 30,45);
+      g.drawString("SN: 123456 123456", 30,60);
+      
+      g.setFont(stringBold);
+      g.drawString("ADZ NAGANO GmbH", 30,75);
       
       return bufferedImage;
    }
