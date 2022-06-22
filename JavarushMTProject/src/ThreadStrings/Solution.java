@@ -30,17 +30,36 @@ public class Solution {
 
        Thread.setDefaultUncaughtExceptionHandler(new OurUncaughtExceptionHandler());
 
-       // this.thread1.start();
-        //this.thread2.start();
+       //this.thread1.start();
+       // this.thread2.start();
         this.thread3.start();
     }
 
     public synchronized String getPartOfString(String string, String threadName) {
+
+    	try {
         int indexFirst = string.indexOf("\t");
         int indexLast = string.lastIndexOf("\t");
         
-        String result = string.substring(indexFirst+1, indexLast);
-    	return result;
+        return string.substring(indexFirst+1, indexLast);
+
+    	}
+    	catch(Throwable e) {
+    		
+    	
+        if(threadName.equals(FIRST_THREAD_NAME)) {
+        	throw new StringForFirstThreadTooShortException(e);
+        }
+        else if(threadName.equals(SECOND_THREAD_NAME)) {
+        	throw new StringForSecondThreadTooShortException(e);
+        }
+        else {
+        	throw new RuntimeException(e);
+        }
+        
+    	
+    	}
+
     	
     	
     }

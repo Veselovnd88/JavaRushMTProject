@@ -1,5 +1,7 @@
 package ThreadStrings;
 
-public class StringForFirstThreadTooShortException  extends RuntimeException{
-
+public class StringForFirstThreadTooShortException extends RuntimeException {
+    public StringForFirstThreadTooShortException(Throwable cause) {
+        super(cause);
+    }
 }
