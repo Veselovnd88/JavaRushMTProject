@@ -7,28 +7,27 @@ public class TaskSubstrings {
 	
     public static void main(String[] args) {
         System.out.println(getPartOfString("JavaRush - лучший сервис обучения Java."));
-        System.out.println(getPartOfString("Амиго и Диего лучшие друзья!"));
+        System.out.println(getPartOfString("АмигДиего лучшие друзья!"));
     }
 
     public static String getPartOfString(String string) {
-    	try {
-    		
-    		int index1 = string.indexOf(" ");
-    		int curr = index1;
-    		int first = index1;
-    		for ( int i = 0; i< 3; i++) {
-    			curr+= string.substring(first+1).indexOf(" ");
-    			first = curr;
-    		}
-    		int index5 = string.substring(curr+1).indexOf(" ");
-    		if(index5==-1) {
-    			return string.substring(index1+1);
-    		}
-    		
-    		return string.substring(index1+1,index5+curr+1 );
-    	} catch (RuntimeException e) {
+
+    	if(string==null) {
     		throw new TooShortStringException();
     	}
+    	
+    	String[] parts = string.split(" ");
+    	if(parts.length<5) {
+    		throw new TooShortStringException();
+    	}
+    	StringBuilder sb = new StringBuilder();
+    	for(int i=1; i<5;i++) {
+    		sb.append(parts[i]);
+    		sb.append(" ");
+    	}
+    	return sb.toString().trim();
+    	
+    	
     		
     	
     }
