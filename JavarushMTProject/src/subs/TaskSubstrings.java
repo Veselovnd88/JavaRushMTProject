@@ -16,7 +16,7 @@ public class TaskSubstrings {
     		int index1 = string.indexOf(" ");
     		int curr = index1;
     		int first = index1;
-    		for ( int i = 0; i< 4; i++) {
+    		for ( int i = 0; i< 3; i++) {
     			curr+= string.substring(first+1).indexOf(" ");
     			first = curr;
     		}
