@@ -34,7 +34,6 @@ public class Solution implements Cloneable {
 			try {
 				users_cl.put(new String(x), (User) y.clone());
 			} catch (CloneNotSupportedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
