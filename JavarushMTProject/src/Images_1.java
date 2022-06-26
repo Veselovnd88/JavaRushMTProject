@@ -42,7 +42,7 @@ public class Images_1 extends JPanel {
    public static void main(String[] args) {
 	   System.out.println("Hello");
 	    Images_1 im = new Images_1();
-	    String name = im.getClass().getPackage().getName();
+
 	    System.out.println(im.getClass().getPackage()+"myTestImage.jpg".replace(" ", "/"));
 	   //	ImageIO.write((RenderedImage) createImageWithText(),"jpg",outputFile);
 

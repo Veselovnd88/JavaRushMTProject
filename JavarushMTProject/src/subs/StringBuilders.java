@@ -22,7 +22,7 @@ public class StringBuilders {
 				for(String s:parts) {
 					sb.append(s+" ");
 				}
-			}
+			} fr.close();
 		} 
     	catch (IOException e) {
 
