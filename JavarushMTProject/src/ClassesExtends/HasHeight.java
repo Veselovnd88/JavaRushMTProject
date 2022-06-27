@@ -1,5 +1,5 @@
 package ClassesExtends;
 
-public interface HasHeigth {
+public interface HasHeight {
 	double getHeight();
 }
