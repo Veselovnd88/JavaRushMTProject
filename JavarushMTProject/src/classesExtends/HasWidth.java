@@ -1,4 +1,4 @@
-package ClassesExtends;
+package classesExtends;
 
 public interface HasWidth {
 	double getWidth();
