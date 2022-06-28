@@ -60,9 +60,7 @@ public class Util {
     			return this.getClass().getSimpleName()+"[id=" + id + ", length=" + length + ", size=" + size + ", price=" + price + "]";
     		}
 
-//    		
-    		
-        	
+
         }
         class Levis extends AbstractJeans{
         	Company company;
