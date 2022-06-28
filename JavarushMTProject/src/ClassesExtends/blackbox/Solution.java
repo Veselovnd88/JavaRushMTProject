@@ -43,7 +43,7 @@ public class Solution implements Action {
 						public  void someAction() {
 							sb.append(SecondClass.SPECIFIC_ACTION_FOR_ANONYMOUS_SECOND_CLASS_PARAM+param);
 							super.someAction();
-							
+				
 						}
 					};
 					sc.someAction();
