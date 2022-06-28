@@ -14,10 +14,7 @@ public class Util {
         jeansArray.add(new Object[]{4, Company.CalvinKleinJeans, 31, 8, 125.0});
     }
     
-    
 
-    
-    
     public static List<Jeans> getAllJeans() {
 
         abstract class AbstractJeans implements Jeans{
@@ -28,8 +25,7 @@ public class Util {
 
         	
         	
-        	   private String TM;  	
-    		public AbstractJeans(int id,int length, int size, double price) {
+        	   public AbstractJeans(int id,int length, int size, double price) {
     			super();
     			this.id = id;
     			this.length = length;
