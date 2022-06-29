@@ -1,4 +1,4 @@
-package classesExtends;
+package ClassesExtends;
 
 public interface HasHeight {
 	double getHeight();

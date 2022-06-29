@@ -1,4 +1,4 @@
-package classesExtends;
+package ClassesExtends;
 
 public class Task {
     public static void main(String[] args) {

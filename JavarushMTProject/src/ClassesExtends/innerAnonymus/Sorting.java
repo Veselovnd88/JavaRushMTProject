@@ -1,4 +1,4 @@
-package classesExtends.innerAnonymus;
+package ClassesExtends.innerAnonymus;
 
 //package com.javarush.task.task24.task2412;
 
@@ -23,22 +23,30 @@ public class Sorting {
     public static void printStocks(List<Stock> stocks, Date actualDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-        double[] filelimits = {0d, actualDate.getTime()};
-        String[] filepart = {"change {4}", "open {2} and last {3}"};
+        double[] filelimits = {0d, actualDate.getTime()};//тут указываются пределы - если до 0 вкл - то даст первый, если от актуальной даты - то второй
+        String[] filepart = {"change {4}", "open {2} and last {3}"};//в зависимрости от выбора этого поля - мы выбираем - поле 4, либо поля 2 и 3
 
-        ChoiceFormat fileform = new ChoiceFormat(filelimits, filepart);
-        Format[] testFormats = {null, dateFormat, fileform};
-        MessageFormat pattform = new MessageFormat("{0}   {1} | {5} {6}");
+        ChoiceFormat fileform = new ChoiceFormat(filelimits, filepart);// формат выбора, теперь мы должны установить этот формат к определенному полю
+        
+        double[] filelimits2 = {0d, 20d, 26d};
+        
+        String[] filepart2 = {"hello {4}", "second choice {2}","third choice {3}"};
+        
+       ChoiceFormat fileform2 = new ChoiceFormat(filelimits2,filepart2);
+        
+        Format[] testFormats = {fileform2,null, dateFormat, fileform};//тут форматы - у нас 4 поля, к первым двум никакие форматы не еприменимы, к другим двум - применимы
+        MessageFormat pattform = new MessageFormat("{0}   {1} | {5} {6}");//
         pattform.setFormats(testFormats);
 
         for (Stock stock : stocks) {
             String name = ((String) stock.get("name"));
+            int len = name.length();
             String symbol = (String) stock.get("symbol");
             double open = !stock.containsKey("open") ? 0 : ((double) stock.get("open"));
             double last = !stock.containsKey("last") ? 0 : ((double) stock.get("last"));
             double change = !stock.containsKey("change") ? 0 : ((double) stock.get("change"));
             Date date = (Date) stock.get("date");
-            Object[] testArgs = {name, symbol, open, last, change, date, date.getTime()};
+            Object[] testArgs = {len, symbol, open, last, change, date, date.getTime()};//тут семь полей, из которых мы юзаем 4 - имя, символ, 5 - дата,  6- дата в мс
             System.out.println(pattform.format(testArgs));
         }
     }
@@ -51,13 +59,50 @@ public class Sorting {
                 String name2 = (String) stock2.get("name");
                 return name1.compareTo(name2);
         	}
+        	
+        	public int compareDate(Stock stock1, Stock stock2) {
+        		long day = 24*60*60*1000;
+        		Long d1 = ((Date) stock1.get("date")).getTime()/day;      
+        		Long d2 = ((Date) stock2.get("date")).getTime()/day;   
+        		return d1.compareTo(d2);
+        	}
         	//компаратор на дату, потом компаратор на по прибыли
+        	
+
+            private int compareProfit(Stock stock1, Stock stock2) {
+                int profit1 = getProfitPercentage(stock1);
+                int profit2 = getProfitPercentage(stock2);
+                return profit2 - profit1;
+            }
+
+            private int getProfitPercentage(Stock stock) {
+                double res;
+                if (stock.containsKey("change")) {
+                    res = !stock.containsKey("change") ? 0 : ((double) stock.get("change"));//если есть ключ разница  то  если нет то 0, если есть то берем разница
+                } else if (stock.containsKey("open") && stock.containsKey("last")) {
+                    double open = ((double) stock.get("open"));//либо считаем
+                    double last = ((double) stock.get("last"));
+                    res = last - open;
+                } else {
+                    throw new RuntimeException("Incorrect data");
+                }
+
+                return (int) (res * 1000);
+            }
+        	
         	
         	
             public int compare(Stock stock1, Stock stock2) {
-            	if(compareName(stock1,stock2)==0) {
+            	int compName = compareName(stock1, stock2);
+            	
+            	if(compName==0) {
+            		int compDate = compareDate(stock1, stock2);
+	            		if(compDate==0) {
+	            			return compareProfit(stock1, stock2);
+	            		}
+            		return compDate;
             		
-            	}
+            	} return compName;
             	
             	
             	

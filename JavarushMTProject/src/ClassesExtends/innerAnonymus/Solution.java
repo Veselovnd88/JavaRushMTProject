@@ -1,4 +1,4 @@
-package classesExtends.innerAnonymus;
+package ClassesExtends.innerAnonymus;
 
 import java.util.LinkedList;
 import java.util.List;

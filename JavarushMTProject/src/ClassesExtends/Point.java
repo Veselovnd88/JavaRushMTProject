@@ -1,4 +1,4 @@
-package classesExtends;
+package ClassesExtends;
 
 public class Point {
     private double x;
