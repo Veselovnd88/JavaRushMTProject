@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    private DataSource dataSource = DataSource.getInstance();
+    private DataSource dataSource = DataSource.getInstance();//singletone
 
     public User getUserById(long id) {
         List<User> users = dataSource.getUsers();
@@ -17,13 +17,13 @@ public class UserDao {
                 return user.clone();
             }
         }
-        return User.NULL_USER;
+        return User.NULL_USER;//if return valid user - ok, else Null user
     }
 
     public List<User> getUsersByName(String name) {
         if (name == null || name.trim().isEmpty()) throw new IllegalArgumentException();
 
-        List<User> users = dataSource.getUsers();
+        List<User> users = dataSource.getUsers();//datasoucre getUsers - return List<User>
         List<User> result = new ArrayList<>();
         for (User user : users) {
             if (name.equals(user.getName())) {

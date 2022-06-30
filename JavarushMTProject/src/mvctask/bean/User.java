@@ -15,7 +15,7 @@ public class User implements Cloneable {
     }
 
     public User() {
-        this("", 0, 0);
+        this("", 0, 0);// null user with empty name and zero values
     }
 
 
@@ -28,14 +28,14 @@ public class User implements Cloneable {
         try {
             return (User) super.clone();
         } catch (CloneNotSupportedException ignored) {
-            return NULL_USER;
+            return NULL_USER;//if clone wasnt sucesfull - return empty user
         }
     }
 
     public User clone(long newId) {
         if (this == NULL_USER) return NULL_USER;
 
-        return new User(name, newId, level);
+        return new User(name, newId, level);// clone to new Id
     }
 
     /////  getters and setters

@@ -35,15 +35,15 @@ public class DataSource {
             return User.NULL_USER;
 
         //new User
-        if (newUser.getId() == 0)
+        if (newUser.getId() == 0)//if id of transferred user 0 = create new user
             return createNewUser(newUser);
         else
-            return updateUser(newUser);
+            return updateUser(newUser);// or update
     }
 
     private User createNewUser(User newUser) {
-        User clone = newUser.clone(++maxUserId);
-        users.add(clone);
+        User clone = newUser.clone(++maxUserId);// increment and get new User with ++id
+        users.add(clone); //and add
         return clone;
     }
 
