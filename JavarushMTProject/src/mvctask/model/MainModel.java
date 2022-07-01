@@ -19,8 +19,8 @@ public class MainModel implements Model {
 
 	@Override
 	public void loadUsers() {
-		List<User> result = userService.getUsersBetweenLevels(1, 100);
-		modelData.setUsers(result);
+		
+		modelData.setUsers(getAllUsers());
 		modelData.setDisplayDeletedUserList(false);
 		
 	}
@@ -29,6 +29,26 @@ public class MainModel implements Model {
 		List<User> users = userService.getAllDeletedUsers();
 		modelData.setUsers(users);
 		modelData.setDisplayDeletedUserList(true);
+	}
+	
+	public void loadUserById(long userId) {
+		User user = userService.getUsersById(userId);
+		modelData.setActiveUser(user);
+		}
+	
+	public void deleteUserById(long id) {
+		userService.deleteUser(id);
+		modelData.setUsers(getAllUsers());
+	}
+	public void changeUserData(String name, long id, int level) {
+		userService.createOrUpdateUser(name, id, level);
+		modelData.setUsers(getAllUsers());
+	}
+	
+	private List<User> getAllUsers(){
+		List<User> allUsers = userService.getUsersBetweenLevels(1,100);//тут работает вся логика получения юзеров+ выборка только активных
+		
+		return userService.filterOnlyActiveUsers(allUsers);
 	}
 
 }

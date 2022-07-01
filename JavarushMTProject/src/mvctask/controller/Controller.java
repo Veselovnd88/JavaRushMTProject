@@ -32,5 +32,18 @@ public class Controller {//получает запрос от клиента, о
 		model.loadDeletedUsers();
 		usersView.refresh(model.getModelData());
 	}
+	public void onOpenUserEditForm(long userId) {
+		model.loadUserById(userId);
+		editUserView.refresh(model.getModelData());
+		}
+	
+	public void onUserDelete(long id) {
+		model.deleteUserById(id);
+	}
+
+	public void onUserChange(String name, long id, int level) {
+		model.changeUserData(name, id, level);
+		
+	}
 
 }
