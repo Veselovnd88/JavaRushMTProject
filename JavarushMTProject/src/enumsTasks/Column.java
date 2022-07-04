@@ -15,6 +15,9 @@ public enum Column implements Columnable {
     private static int[] realOrder;
 
     private Column(String columnName) {
+    	
+    	
+    	Column.valueOf(columnName);
         this.columnName = columnName;
     }
 
