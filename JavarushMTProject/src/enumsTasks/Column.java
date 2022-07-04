@@ -54,7 +54,7 @@ public enum Column implements Columnable {
         List<Column> result = new LinkedList<>();
         for(int i=0; i<realOrder.length; i++) {
         	if(realOrder[i]!=-1) {
-        		result.add(Column.values()[realOrder[i]+1]);
+        		result.add(Column.values()[realOrder[i]+1]);//отсортировать
         	}      				
         }
         return result;
