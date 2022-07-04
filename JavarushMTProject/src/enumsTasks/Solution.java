@@ -16,8 +16,8 @@ public class Solution {
      * Bank Name
      */
     public static void main(String[] args) {
-
         Column.configureColumns(Column.AccountNumber, Column.Amount, Column.BankName);
+
 
         for (Columnable columnable : Column.getVisibleColumns()) {
             System.out.println(columnable.getColumnName());
@@ -25,7 +25,7 @@ public class Solution {
 
         System.out.println("--------------------");
         Column.AccountNumber.hide();
-        Column.BankName.hide();
+       // Column.BankName.hide();
         for (Columnable columnable : Column.getVisibleColumns()) {
             System.out.println(columnable.getColumnName());
         }
