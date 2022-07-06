@@ -22,7 +22,7 @@ public abstract class SocketTask<T> implements CancellableTask<T> {
     }
 
     public RunnableFuture<T> newTask() {
-        return new FutureTask<T>(this) {//возвращается новая таска с переопределенным методом кансел - в котором пытается закрыть скоет, если не вышло то 
+        return new FutureTask<T>(this) {//возвращается новая таска в которую передается объект Сокет таск с переопределенным методом кансел - в котором пытается закрыть скоет, если не вышло то 
         	// то вызывает опять себя
             @SuppressWarnings("finally")
 			public boolean cancel(boolean mayInterruptIfRunning) {
