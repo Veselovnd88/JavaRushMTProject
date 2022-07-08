@@ -49,7 +49,7 @@ public class Dog implements Pet {
     		
 			@Override
 			protected String getSuperQuotes() {
-				// TODO Auto-generated method stub
+
 				return super.getSuperQuotes();
 			}
 

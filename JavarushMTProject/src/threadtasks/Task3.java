@@ -33,7 +33,7 @@ public class Task3 {
 				
 				
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}System.out.println(String.format("%s %s %s", MyThread.this.secretKey, thread.getName(), throwable.getMessage() ));
 			
