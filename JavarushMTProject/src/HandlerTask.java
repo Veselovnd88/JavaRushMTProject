@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class HandlerTask extends Thread {
 	
@@ -23,9 +25,9 @@ public class HandlerTask extends Thread {
 	}
 	
 	@Override
-	public void run() {
+	public void run()  {
 		super.run();
-			throw new Error();
+
 	}
 
 
