@@ -39,7 +39,7 @@ public class Server {
 		}
 		
 	}
-	public void sendBroadcastMessage(Message message) {
+	public static void sendBroadcastMessage(Message message) {
 		
 		connectionMap.forEach((x,y)-> {
 			try {
@@ -54,15 +54,59 @@ public class Server {
 	
 	
 	private static class Handler extends Thread{//пприватный статический класс
+		/* Протокол общения с клиентом
+		 * этап 1  - рукопожатие -занкомтсво с сервером*/
 		private Socket socket;
 		
 		public Handler(Socket socket) {
 			this.socket = socket;
 		}
 		
+		private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
+				while(true) {
+					connection.send(new Message(MessageType.NAME_REQUEST));//при присоединении сонекшн шлет запрос имени
+					Message message = connection.receive();//получаем
+					if(message.getType()!=MessageType.USER_NAME) {
+						ConsoleHelper.writeMessage("Получено сообщение не содержащее имя");
+						continue;
+					}
+					String userName = message.getData();
+					if(userName.isEmpty()) {
+						ConsoleHelper.writeMessage("Имя не может быть пустым");
+						continue;
+					}
+					if(Server.connectionMap.containsKey(userName)) {
+						ConsoleHelper.writeMessage("Имя уже существует");
+						continue;
+					}
+					Server.connectionMap.put(userName, connection);
+					connection.send(new Message(MessageType.NAME_ACCEPTED));
+					return userName;
+				}
+		}
 		
+		private void serverMainLoop(Connection connection, String userName) throws ClassNotFoundException, IOException {
+			while(true) {
+			Message message = connection.receive();
+			if(message.getType()==MessageType.TEXT) {
+				String str = userName+": "+message.getData();
+				Message sendMessage = new Message(MessageType.TEXT,str);
+				sendBroadcastMessage(sendMessage);
+			}
+			else {
+				ConsoleHelper.writeMessage("Не удалось отправить сообщение");
+			}
+			}
+		}
 		
-		
+		private void notifyUsers(Connection connection, String userName) throws IOException {
+			for (Map.Entry<String, Connection> entry :connectionMap.entrySet()){
+				if(!entry.getKey().equals(userName)) {
+				Message message = new Message(MessageType.USER_ADDED, entry.getKey());
+				connection.send(message);}
+				
+			}
+		}
+	
 	}
-
 }
