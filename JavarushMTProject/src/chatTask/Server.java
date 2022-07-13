@@ -51,8 +51,7 @@ public class Server {
 		});
 	}
 	
-	
-	
+
 	private static class Handler extends Thread{//пприватный статический класс
 		/* Протокол общения с клиентом
 		 * этап 1  - рукопожатие -занкомтсво с сервером*/
@@ -73,6 +72,7 @@ public class Server {
 				serverMainLoop(connection, userName);
 	
 			} catch (IOException |ClassNotFoundException e) {
+				e.printStackTrace();
 				ConsoleHelper.writeMessage("Ошибка соединения");	
 				} 
 			ConsoleHelper.writeMessage("Ошибка при обмене данными с удаленным адресом");
@@ -105,19 +105,17 @@ public class Server {
 				}
 		}
 		
-		private void serverMainLoop(Connection connection, String userName) throws ClassNotFoundException, IOException {
-			while(true) {
-			Message message = connection.receive();
-			if(message.getType()==MessageType.TEXT) {
-				String str = userName+": "+message.getData();
-				Message sendMessage = new Message(MessageType.TEXT,str);
-				sendBroadcastMessage(sendMessage);
-			}
-			else {
-				ConsoleHelper.writeMessage("Не удалось отправить сообщение");
-			}
-			}
-		}
+        private void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException {
+            while (true) {
+                Message message = connection.receive();
+                if (message.getType() == MessageType.TEXT) {
+                    String data = message.getData();
+                    sendBroadcastMessage(new Message(MessageType.TEXT, userName + ": " + data));
+                } else {
+                    ConsoleHelper.writeMessage("Получено сообщение от " + socket.getRemoteSocketAddress() + ". Тип сообщения не соответствует протоколу.");
+                }
+            }
+        }
 		
 		private void notifyUsers(Connection connection, String userName) throws IOException {
 			for (Map.Entry<String, Connection> entry :connectionMap.entrySet()){
