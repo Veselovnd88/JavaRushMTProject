@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import chatTask.ConsoleHelper;
-import chatTask.Message;
-import chatTask.MessageType;
 
 public class BotClient extends Client {
 	
@@ -16,15 +14,7 @@ public class BotClient extends Client {
 		BotClient bc = new BotClient();
 		bc.run();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	protected String getUserName() {
 		return "date_bot_"+(int) (Math.random()*100);
@@ -41,7 +31,6 @@ public class BotClient extends Client {
 	}
 
 	public class BotSocketThread extends SocketThread{
-
 		@Override
 		protected void processIncomingMessage(String message) {
 			ConsoleHelper.writeMessage(message);
@@ -83,12 +72,10 @@ public class BotClient extends Client {
 			}
 				if(!answer.equals("")) {
 					sendTextMessage("Информация для "+name+": "+answer);}
-
 		}
 
 		@Override
 		protected void clientHandshake() throws ClassNotFoundException, IOException {
-			// TODO Auto-generated method stub
 			super.clientHandshake();
 		}
 
@@ -97,8 +84,5 @@ public class BotClient extends Client {
 			sendTextMessage("Привет чатику. Я бот. Понимаю команды: дата, день, месяц, год, время, час, минуты, секунды.");
 			super.clientMainLoop();
 		}
-		
-		
-		
 	}
 }
