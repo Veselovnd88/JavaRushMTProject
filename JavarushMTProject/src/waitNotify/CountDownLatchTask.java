@@ -3,30 +3,30 @@ package waitNotify;
 import java.util.concurrent.CountDownLatch;
 
 public class CountDownLatchTask{
-    private final Object lock = new Object();
+
     private volatile boolean isWaitingForValue = true;
 
     CountDownLatch latch = new CountDownLatch(1);
 
     public void someMethod() throws InterruptedException {
-        synchronized (lock) {
-            while (isWaitingForValue) {
-                lock.wait();
-            }
+
+
+            latch.await();
+
 
             retrieveValue();
 
-            isWaitingForValue = false;
-            lock.notify();
-        }
+
+            latch.countDown();
     }
 
     void retrieveValue() {
         System.out.println("Value retrieved.");
     }
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws InterruptedException {
+        CountDownLatchTask cdlt = new CountDownLatchTask();
+        cdlt.someMethod();
     }
 
 }
