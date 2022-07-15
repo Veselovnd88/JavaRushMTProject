@@ -9,7 +9,7 @@ public class MyQueue<T> {
     public synchronized T get(){
         while (queue.isEmpty()){//если пустая очередь то ждем  пока не появится
             try {
-                wait();
+                wait(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -23,7 +23,7 @@ public class MyQueue<T> {
         synchronized (this){
         while (queue.size()>10){
             try {
-                wait();
+                wait(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

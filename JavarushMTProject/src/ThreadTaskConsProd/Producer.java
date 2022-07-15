@@ -9,8 +9,10 @@ public class Producer implements Runnable{
 
     @Override
     public void run() {
-        for (int i = 0; i <100 ; i++) {
+        for (int i = 0; i <200 ; i++) {
             myQueue.put(i);
         }
+        System.out.println(this.toString()+" остановился");
     }
+
 }

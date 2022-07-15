@@ -14,5 +14,6 @@ public class Consumer implements Runnable{
         for (int i = 0; i < 100; i++) {
             myQueue.get();
         }
+        System.out.println(this.toString()+" остановился");
     }
 }
