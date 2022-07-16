@@ -15,22 +15,20 @@ public class Archiver {
         System.out.println("Введите полный путь к архиву");
 
 
-        Operation op=null;
-        while(op!=Operation.EXIT){
+        Operation operation = null;
+        do {
+            try {
+                operation = askOperation();
+                CommandExecutor.execute(operation);
+            } catch (WrongZipFileException e) {
+                ConsoleHelper.writeMessage("Вы не выбрали файл архива или выбрали неверный файл.");
+            } catch (Exception e) {
+                ConsoleHelper.writeMessage("Произошла ошибка. Проверьте введенные данные.");
+            }
 
-            try{
-            op=askOperation();
-            }
-            catch (IOException e){//WRONGZIPFILE EXCEPTION
-                System.out.println("Вы не выбрали файл архива или выбрали неверный файл.");
-            }
-            catch (Exception e){
-                System.out.println("Произошла ошибка. Проверьте введенные данные.");
-            }
-        }
-        new ExitCommand().execute();
-
+        } while (operation != Operation.EXIT);
     }
+
     public static Operation askOperation() throws IOException{
         System.out.printf("Выберите операцию:\n" +
                 "%s - упаковать файлы в архив\n" +
