@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 public class Archiver {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Введите полный путь к архиву");
+        //System.out.println("Введите полный путь к архиву");
 
 
         Operation operation = null;
@@ -23,6 +23,7 @@ public class Archiver {
             } catch (WrongZipFileException e) {
                 ConsoleHelper.writeMessage("Вы не выбрали файл архива или выбрали неверный файл.");
             } catch (Exception e) {
+                e.printStackTrace();
                 ConsoleHelper.writeMessage("Произошла ошибка. Проверьте введенные данные.");
             }
 

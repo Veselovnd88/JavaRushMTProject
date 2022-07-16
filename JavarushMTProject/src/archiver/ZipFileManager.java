@@ -1,14 +1,18 @@
 package archiver;
 
 import archiver.exception.PathIsNotFoundException;
+import archiver.exception.WrongZipFileException;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 public class ZipFileManager {
     Path zipFile;//полный путь к архиву с которым будем работать
@@ -41,6 +45,23 @@ public class ZipFileManager {
         }
             zos.closeEntry();
         }
+    }
+
+    public List<FileProperties> getFilesList() throws Exception{//возвращает список свойств файлов в архиве
+        if(!Files.isRegularFile(zipFile)){
+            throw  new WrongZipFileException();
+        }
+        List<FileProperties> filePropertiesList = new ArrayList<>();
+        try(ZipInputStream zis = new ZipInputStream(Files.newInputStream(zipFile))){
+            ZipEntry ze = zis.getNextEntry();//получили
+            while(ze!=null){
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                copyData(zis,baos);
+                filePropertiesList.add(new FileProperties(ze.getName(), baos.size(), ze.getCompressedSize(),ze.getMethod()));
+                ze=zis.getNextEntry();
+            }
+        }return  filePropertiesList;
     }
     private void addNewZipEntry(ZipOutputStream zipOutputStream, Path filePath, Path filename) throws IOException{
         ZipEntry ze = new ZipEntry(filename.toString());// создали зип Ентри - принимает строку на вход
