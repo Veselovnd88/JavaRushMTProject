@@ -55,7 +55,6 @@ public class ZipFileManager {
         try(ZipInputStream zis = new ZipInputStream(Files.newInputStream(zipFile))){
             ZipEntry ze = zis.getNextEntry();//получили
             while(ze!=null){
-
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 copyData(zis,baos);
                 filePropertiesList.add(new FileProperties(ze.getName(), baos.size(), ze.getCompressedSize(),ze.getMethod()));
@@ -71,6 +70,32 @@ public class ZipFileManager {
             copyData(is,zipOutputStream);//копируем данные в стрим
             zipOutputStream.closeEntry();
         }
+    }
+    public void extractAll(Path outputFolder) throws Exception{
+        System.out.println("зашел");
+        if(!Files.isRegularFile(zipFile)){
+            throw new WrongZipFileException();
+        }
+        if(!Files.exists(outputFolder)){
+            Files.createDirectories(outputFolder);//создает все директории по заданному пути
+        }
+        try(ZipInputStream zis = new ZipInputStream(Files.newInputStream(zipFile))){
+
+
+
+            ZipEntry ze = zis.getNextEntry();
+            while(ze!=null){
+                Path myPath = outputFolder.resolve(ze.getName());
+
+                Path parent = myPath.getParent();//проверяет, существуют ли родительские папки
+                if (Files.notExists(parent))//если нет - то создает все папки
+                    Files.createDirectories(parent);
+                OutputStream os = Files.newOutputStream(myPath);
+                copyData(zis,os);
+                ze = zis.getNextEntry();
+            }
+        }
+
     }
     private void copyData(InputStream is, OutputStream out) throws IOException {
         byte[] buffer = new byte[1024];
