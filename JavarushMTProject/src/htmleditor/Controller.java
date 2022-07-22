@@ -3,10 +3,7 @@ package htmleditor;
 import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 
 public class Controller {
     private View view;
@@ -69,10 +66,33 @@ public class Controller {
 
     }
     public void openDocument(){
+        view.selectHtmlTab();
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new HTMLFileFilter());
+        if (chooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
+            currentFile = chooser.getSelectedFile();
+            resetDocument();
+            view.setTitle(currentFile.getName());}
+        try{
+        FileReader fr = new FileReader(currentFile);
+        new HTMLEditorKit().read(fr,document,0);}
+        catch (Exception e){
+            ExceptionHandler.log(e);
+        }
 
+        view.resetUndo();
     }
     public void saveDocument(){
-
+        view.selectHtmlTab();
+        if(currentFile==null){
+            saveDocumentAs();
+        }
+        try{
+            FileWriter fw = new FileWriter(currentFile);
+            new HTMLEditorKit().write(fw,document,0,document.getLength());}
+        catch (Exception e){
+            ExceptionHandler.log(e);
+        }
     }
     public void saveDocumentAs(){
         view.selectHtmlTab();
