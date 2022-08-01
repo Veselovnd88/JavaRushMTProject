@@ -21,7 +21,8 @@ public class Tablet {//планшет со своим индивидуальны
         try {
             Order order = new Order(this);
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Console is unavailable");
+            logger.log(Level.SEVERE, "Console is unavailable.");
+            //запись в лог с уровнем СЕВЕРЕ
             throw new RuntimeException(e);
         }
 
